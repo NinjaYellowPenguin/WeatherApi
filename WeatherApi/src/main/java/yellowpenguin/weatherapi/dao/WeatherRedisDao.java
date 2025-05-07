@@ -1,13 +1,18 @@
 package yellowpenguin.weatherapi.dao;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Repository;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 
 import yellowpenguin.weatherapi.models.Weather;
 
@@ -26,7 +31,12 @@ public class WeatherRedisDao implements WeatherDao{
 
     @Override
     public Weather findById(String address) {
-        return (Weather) redisTemplate.opsForValue().get(REDIS_PREFIX + address);
+    	Object result = redisTemplate.opsForValue().get(REDIS_PREFIX + address);
+    	if(result instanceof Map) {
+    		HashMap<String, Object> map = (HashMap<String, Object>) result;
+    		return mapToWeather(map);
+    	}
+    	return null;        
     }
 
     @Override
@@ -47,6 +57,12 @@ public class WeatherRedisDao implements WeatherDao{
             }
         }
         return penguins;
+    }
+    
+    private Weather mapToWeather(HashMap<String, Object> map) {
+    	ObjectMapper objectMapper = new ObjectMapper();
+        objectMapper.registerModule(new JavaTimeModule()); 
+        return objectMapper.convertValue(map, Weather.class);
     }
 
 }

@@ -1,10 +1,11 @@
 package yellowpenguin.weatherapi.models;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
 import yellowpenguin.weatherapi.models.dto.WeatherResponseDTO;
 
-public class Weather{
+public class Weather implements Serializable{
 
 	private double latitude;
 	private double longitude;

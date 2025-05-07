@@ -10,9 +10,12 @@ import org.springframework.data.redis.serializer.StringRedisSerializer;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 
+import yellowpenguin.weatherapi.models.Weather;
+
 @Configuration
 public class RedisConfig {
 
+	/* 
     @Bean
     public RedisTemplate<String, Object> redisTemplate(RedisConnectionFactory connectionFactory) {
         RedisTemplate<String, Object> template = new RedisTemplate<>();
@@ -30,7 +33,7 @@ public class RedisConfig {
         template.afterPropertiesSet();
         return template;
     }
-    
+    */
     @Bean
     public RedisTemplate<String, Object> redisTemplate(RedisConnectionFactory connectionFactory) {
         RedisTemplate<String, Object> template = new RedisTemplate<>();
