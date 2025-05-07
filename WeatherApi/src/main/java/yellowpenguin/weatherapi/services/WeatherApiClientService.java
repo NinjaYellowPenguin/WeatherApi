@@ -1,4 +1,4 @@
-package yellowpenguin.weatherapi.client;
+package yellowpenguin.weatherapi.services;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -8,25 +8,25 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
-import yellowpenguin.weatherapi.models.QueryCostResponse;
+import yellowpenguin.weatherapi.models.Weather;
 
 @Service
-public class WeatherApiClient {
+public class WeatherApiClientService {
 
 	private final RestTemplate restTemplate;
 
 	@Value("${WEATHER_API_URL}")
 	private String apiUrl;
 
-	public WeatherApiClient(RestTemplate restTemplate) {
+	public WeatherApiClientService(RestTemplate restTemplate) {
 		this.restTemplate = restTemplate;
 	}
 	
-	public QueryCostResponse callApi(String location) {
+	public Weather callApi(String location) {
 		String time = getStringDayNow();
 		apiUrl = apiUrl.replace("[location]", location);
 		apiUrl = apiUrl.replace("[day]", time);
-		ResponseEntity<QueryCostResponse> response = restTemplate.getForEntity(apiUrl, QueryCostResponse.class);
+		ResponseEntity<Weather> response = restTemplate.getForEntity(apiUrl, Weather.class);
 		return response.getBody();
 	}
 	

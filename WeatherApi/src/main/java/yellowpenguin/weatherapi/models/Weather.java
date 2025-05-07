@@ -2,7 +2,7 @@ package yellowpenguin.weatherapi.models;
 
 import java.io.Serializable;
 
-public class QueryCostResponse implements Serializable {
+public class Weather implements Serializable {
 	
     private double latitude;
     private double longitude;
@@ -11,7 +11,7 @@ public class QueryCostResponse implements Serializable {
     private String timezone;
     private String description;
 
-    public QueryCostResponse () {
+    public Weather () {
     	
     }
 
