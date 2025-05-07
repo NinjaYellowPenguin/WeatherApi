@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import yellowpenguin.weatherapi.models.Weather;
+import yellowpenguin.weatherapi.models.dto.WeatherResponseDTO;
 
 @Service
 public class WeatherApiClientService {
@@ -26,8 +27,8 @@ public class WeatherApiClientService {
 		String time = getStringDayNow();
 		apiUrl = apiUrl.replace("[location]", location);
 		apiUrl = apiUrl.replace("[day]", time);
-		ResponseEntity<Weather> response = restTemplate.getForEntity(apiUrl, Weather.class);
-		return response.getBody();
+		ResponseEntity<WeatherResponseDTO> response = restTemplate.getForEntity(apiUrl, WeatherResponseDTO.class);
+		return new Weather(response.getBody());
 	}
 	
 	private String getStringDayNow() {

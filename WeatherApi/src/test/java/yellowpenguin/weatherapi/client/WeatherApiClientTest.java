@@ -19,8 +19,8 @@ public class WeatherApiClientTest {
 	public void callApiTest() {
 		String location = "Barcelona";
 		Weather response = service.callApi(location);
-		System.out.println(response);
-		assertEquals(1, 1);
+		//System.out.println(response);
+		assertEquals(response.getAddress().toUpperCase(), location.toUpperCase());
 	}
 
 }
